@@ -208,10 +208,10 @@ hr.div{border:none;border-top:1px solid var(--border);max-width:1050px;margin:0 
 <nav>
   <div class="logo">Madhan Gopal <span>.</span>I</div>
   <ul class="nav-links">
-    <li><a onclick="scrollTo('projects-sec')">Projects</a></li>
-    <li><a onclick="scrollTo('skills-sec')">Skills</a></li>
-    <li><a onclick="scrollTo('about-sec')">About</a></li>
-    <li><a onclick="scrollTo('contact-sec')">Contact</a></li>
+    <li><a onclick="scrollToSection('projects-sec')">Projects</a></li>
+    <li><a onclick="scrollToSection('skills-sec')">Skills</a></li>
+    <li><a onclick="scrollToSection('about-sec')">About</a></li>
+    <li><a onclick="scrollToSection('contact-sec')">Contact</a></li>
   </ul>
   <div class="nav-right">
     <button class="edit-toggle" id="editToggle" onclick="promptEditCode()">
@@ -232,8 +232,8 @@ hr.div{border:none;border-top:1px solid var(--border);max-width:1050px;margin:0 
       <div class="hero-role editable-field" id="heroRole">EEE Engineer · Embedded Systems · Web Developer</div>
       <p class="hero-desc editable-field" id="heroDesc">Final-year Electrical & Electronics Engineering student at SMVEC, Puducherry. I build embedded firmware, IoT systems, and full-stack web apps — bridging hardware and software.</p>
       <div class="hero-btns">
-        <button class="btn-p" onclick="scrollTo('projects-sec')">View My Work →</button>
-        <button class="btn-s" onclick="scrollTo('contact-sec')">Get In Touch</button>
+        <button class="btn-p" onclick="scrollToSection('projects-sec')">View My Work →</button>
+        <button class="btn-s" onclick="scrollToSection('contact-sec')">Get In Touch</button>
       </div>
       <div class="hero-stats" id="heroStats">
         <div class="hstat"><div class="hstat-num editable-field">5+</div><div class="hstat-label editable-field">Projects</div></div>
@@ -400,7 +400,7 @@ let projectsData = [
   {title:'Veluryn Agency Website', desc:'Single-file HTML agency site with dark navy aesthetic. Includes VASD operational framework and AI video content prompts.', tags:['HTML/CSS','JavaScript','AI','Design'], url:'https://veluryn.agency', icon:'ti-building-agency', iconBg:'rgba(251,146,60,0.1)', iconColor:'#fb923c'}
 ];
 
-function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+function scrollToSection(id){const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'});}
 
 // ===== RENDER FUNCTIONS =====
 function renderSkills(arr, containerId){
