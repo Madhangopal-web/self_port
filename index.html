@@ -69,8 +69,14 @@ section{padding:4rem 2.5rem;max-width:1050px;margin:0 auto}
 .hc-divider{border:none;border-top:1px solid var(--border);margin:1rem 0}
 .hc-row{display:flex;align-items:center;gap:0.6rem;font-size:0.8rem;color:var(--text);margin-bottom:0.6rem}
 .hc-row i{color:var(--accent);font-size:14px}
-.chip{display:inline-block;background:rgba(79,142,247,0.1);color:var(--accent);border:1px solid rgba(79,142,247,0.2);font-size:0.66rem;padding:0.18rem 0.55rem;border-radius:4px;font-weight:600;letter-spacing:0.05em}
+.chip{display:inline-flex;align-items:center;gap:0.3rem;background:rgba(79,142,247,0.1);color:var(--accent);border:1px solid rgba(79,142,247,0.2);font-size:0.66rem;padding:0.18rem 0.4rem 0.18rem 0.55rem;border-radius:4px;font-weight:600;letter-spacing:0.05em}
 .chip.green{background:rgba(16,185,129,0.1);color:var(--success);border-color:rgba(16,185,129,0.2)}
+.chip-text{outline:none;cursor:default}
+.edit-mode .chip-text{cursor:text}
+.edit-mode .chip-text:focus{outline:1px solid currentColor;border-radius:2px;padding:0 2px}
+.chip-del{display:none;background:none;border:none;color:inherit;opacity:0.55;cursor:pointer;padding:0;width:12px;height:12px;align-items:center;justify-content:center;font-size:10px;line-height:1}
+.chip-del:hover{opacity:1}
+.edit-mode .chip-del{display:inline-flex}
 .hc-chips{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1rem}
 
 /* EDITABLE FIELD */
@@ -172,9 +178,13 @@ section{padding:4rem 2.5rem;max-width:1050px;margin:0 auto}
 .ci-label{font-size:0.7rem;color:var(--muted)}
 .ci-val{font-size:0.85rem;color:var(--white);font-weight:500}
 .socials{display:flex;gap:0.6rem;margin-top:1.5rem}
-.soc-btn{width:36px;height:36px;border-radius:7px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s}
+.soc-btn{width:36px;height:36px;border-radius:7px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;text-decoration:none;position:relative}
 .soc-btn:hover{border-color:rgba(79,142,247,0.4)}
 .soc-btn i{font-size:16px;color:var(--muted)}
+.soc-btn:hover i{color:var(--accent)}
+.soc-edit-badge{display:none;position:absolute;top:-6px;right:-6px;width:16px;height:16px;background:var(--accent);border-radius:50%;align-items:center;justify-content:center}
+.soc-edit-badge i{font-size:9px;color:#fff}
+.edit-mode .soc-edit-badge{display:flex}
 
 footer{border-top:1px solid var(--border);padding:1.2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.72rem;color:var(--muted)}
 footer span{color:var(--accent)}
@@ -256,10 +266,7 @@ hr.div{border:none;border-top:1px solid var(--border);max-width:1050px;margin:0 
       <div class="hc-row"><i class="ti ti-school" aria-hidden="true"></i><span class="editable-field" id="hcSchool">Sri Manakula Vinayagar Engg. College</span></div>
       <div class="hc-row"><i class="ti ti-calendar" aria-hidden="true"></i><span class="editable-field" id="hcYear">Final Year · 2025 Batch</span></div>
       <div class="hc-row"><i class="ti ti-briefcase" aria-hidden="true"></i><span class="editable-field" id="hcRoles">Open to Core + Software roles</span></div>
-      <div class="hc-chips" id="heroChips">
-        <span class="chip">ESP32</span><span class="chip">STM32</span><span class="chip">Python</span><span class="chip">React</span>
-        <span class="chip green">● Open to Work</span>
-      </div>
+      <div class="hc-chips" id="heroChips"></div>
       <button class="add-skill-btn" id="addChipBtn" onclick="openModal('chip')" style="margin-top:0.6rem"><i class="ti ti-plus"></i> Add Chip</button>
     </div>
   </div>
@@ -328,11 +335,11 @@ hr.div{border:none;border-top:1px solid var(--border);max-width:1050px;margin:0 
         <div class="ci-row"><div class="ci-icon"><i class="ti ti-map-pin"></i></div><div><div class="ci-label">Location</div><div class="ci-val editable-field">Puducherry, India</div></div></div>
         <div class="ci-row"><div class="ci-icon"><i class="ti ti-clock"></i></div><div><div class="ci-label">Response Time</div><div class="ci-val editable-field">Within 24 hours</div></div></div>
       </div>
-      <div class="socials">
-        <div class="soc-btn"><i class="ti ti-brand-linkedin"></i></div>
-        <div class="soc-btn"><i class="ti ti-brand-github"></i></div>
-        <div class="soc-btn"><i class="ti ti-brand-instagram"></i></div>
-        <div class="soc-btn"><i class="ti ti-brand-twitter"></i></div>
+      <div class="socials" id="socialsRow">
+        <a class="soc-btn" id="socLinkedin" href="#" target="_blank" rel="noopener" onclick="return handleSocClick(event,'socLinkedin')"><i class="ti ti-brand-linkedin"></i><span class="soc-edit-badge"><i class="ti ti-pencil"></i></span></a>
+        <a class="soc-btn" id="socGithub" href="#" target="_blank" rel="noopener" onclick="return handleSocClick(event,'socGithub')"><i class="ti ti-brand-github"></i><span class="soc-edit-badge"><i class="ti ti-pencil"></i></span></a>
+        <a class="soc-btn" id="socInstagram" href="#" target="_blank" rel="noopener" onclick="return handleSocClick(event,'socInstagram')"><i class="ti ti-brand-instagram"></i><span class="soc-edit-badge"><i class="ti ti-pencil"></i></span></a>
+        <a class="soc-btn" id="socTwitter" href="#" target="_blank" rel="noopener" onclick="return handleSocClick(event,'socTwitter')"><i class="ti ti-brand-twitter"></i><span class="soc-edit-badge"><i class="ti ti-pencil"></i></span></a>
       </div>
     </div>
     <div>
@@ -392,6 +399,13 @@ let timelineData = [
   {year:'2024',title:'Embedded Systems Projects',sub:'Face Recognition Attendance · STM32 TrustZone Firmware',active:false},
   {year:'2024',title:'Full-Stack Web Development',sub:'Yap! Messaging App · Veluryn Agency · Trivon Portfolio',active:false},
   {year:'2023 — 2024',title:'Certifications & Programs',sub:'Wadhwani Ignite Lite · NxtWave AI · Mahindra Rise',active:false}
+];
+let chipsData = [
+  {label:'ESP32', green:false},
+  {label:'STM32', green:false},
+  {label:'Python', green:false},
+  {label:'React', green:false},
+  {label:'● Open to Work', green:true}
 ];
 let projectsData = [
   {title:'Face Recognition Attendance System', desc:'Smart attendance system using ESP32-CAM, Python, OpenCV, and LBPH algorithm. Automatically marks attendance via real-time face detection.', tags:['ESP32-CAM','Python','OpenCV','LBPH'], url:'', icon:'ti-face-id', iconBg:'rgba(79,142,247,0.12)', iconColor:'var(--accent)'},
@@ -489,11 +503,50 @@ function renderProjects(){
 
 function syncProjField(i,key,val){ projectsData[i][key]=val; queueSave(); }
 
+function renderChips(){
+  const wrap = document.getElementById('heroChips');
+  wrap.innerHTML = '';
+  chipsData.forEach((c,i)=>{
+    const span = document.createElement('span');
+    span.className = 'chip' + (c.green ? ' green' : '');
+    span.innerHTML = `<span class="chip-text" contenteditable="${isEdit}" oninput="syncChip(${i},this.textContent)">${c.label}</span><button class="chip-del" onclick="delChip(${i})" title="Remove"><i class="ti ti-x"></i></button>`;
+    wrap.appendChild(span);
+  });
+}
+
+function syncChip(i, val){ chipsData[i].label = val; queueSave(); }
+function delChip(i){ chipsData.splice(i,1); renderChips(); queueSave(); }
+
+
 function delProject(i){
   if(!confirm('Delete this project?')) return;
   projectsData.splice(i,1);
   renderProjects();
   queueSave();
+}
+
+const socialLabels = {socLinkedin:'LinkedIn', socGithub:'GitHub', socInstagram:'Instagram', socTwitter:'Twitter'};
+
+function handleSocClick(e, id){
+  const link = document.getElementById(id);
+  if(isEdit){
+    e.preventDefault();
+    const current = link.getAttribute('href') || '';
+    const url = prompt(`Enter your ${socialLabels[id]} URL:`, current === '#' ? '' : current);
+    if(url === null) return false;
+    const trimmed = url.trim();
+    if(trimmed){
+      link.setAttribute('href', trimmed);
+    } else {
+      link.setAttribute('href', '#');
+    }
+    queueSave();
+    return false;
+  }
+  // not in edit mode — only navigate if a real link is set
+  const href = link.getAttribute('href');
+  if(!href || href === '#'){ e.preventDefault(); return false; }
+  return true;
 }
 
 // ===== EDIT MODE =====
@@ -541,9 +594,10 @@ function toggleEdit(){
     document.querySelectorAll('.editable-field').forEach(el=>el.contentEditable='false');
     saveToSupabase();
   }
-  // keep project/timeline contenteditable in sync with mode
+  // keep project/timeline/chips contenteditable in sync with mode
   renderProjects();
   renderTimeline();
+  renderChips();
 }
 
 // Listen for edits on plain editable-field spans/divs not handled above (hero text, about text, contact info, chips)
@@ -616,10 +670,8 @@ function saveModal(){
   } else if(modalType==='chip'){
     const label=document.getElementById('m-chip').value.trim();
     if(!label)return;
-    const span=document.createElement('span');
-    span.className='chip';
-    span.textContent=label;
-    document.getElementById('heroChips').insertBefore(span,document.getElementById('addChipBtn'));
+    chipsData.push({label, green:false});
+    renderChips();
   }
   queueSave();
   closeModal();
@@ -703,7 +755,6 @@ function collectHeroData(){
       num: h.querySelector('.hstat-num')?.textContent || '',
       label: h.querySelector('.hstat-label')?.textContent || ''
     })),
-    chips: Array.from(document.querySelectorAll('#heroChips .chip')).map(c=>c.textContent),
     aboutP1: document.getElementById('aboutP1')?.textContent || '',
     aboutP2: document.getElementById('aboutP2')?.textContent || '',
     highlights: Array.from(document.querySelectorAll('#highlights .hl-card')).map(h=>({
@@ -712,7 +763,14 @@ function collectHeroData(){
     })),
     contactEmail: document.querySelectorAll('.ci-val')[0]?.textContent || '',
     contactLocation: document.querySelectorAll('.ci-val')[1]?.textContent || '',
-    contactResponse: document.querySelectorAll('.ci-val')[2]?.textContent || ''
+    contactResponse: document.querySelectorAll('.ci-val')[2]?.textContent || '',
+    socials: {
+      linkedin: document.getElementById('socLinkedin')?.getAttribute('href') || '#',
+      github: document.getElementById('socGithub')?.getAttribute('href') || '#',
+      instagram: document.getElementById('socInstagram')?.getAttribute('href') || '#',
+      twitter: document.getElementById('socTwitter')?.getAttribute('href') || '#'
+    },
+    chips: chipsData
   };
 }
 
@@ -747,21 +805,22 @@ function applyHeroData(hero){
       }
     });
   }
-  if(hero.chips && hero.chips.length){
-    const wrap = document.getElementById('heroChips');
-    const addBtn = document.getElementById('addChipBtn');
-    wrap.querySelectorAll('.chip').forEach(c=>c.remove());
-    hero.chips.forEach(label=>{
-      const span = document.createElement('span');
-      span.className = label.includes('Open to Work') ? 'chip green' : 'chip';
-      span.textContent = label;
-      wrap.insertBefore(span, addBtn);
-    });
-  }
   const cvals = document.querySelectorAll('.ci-val');
   if(cvals[0] && hero.contactEmail) cvals[0].textContent = hero.contactEmail;
   if(cvals[1] && hero.contactLocation) cvals[1].textContent = hero.contactLocation;
   if(cvals[2] && hero.contactResponse) cvals[2].textContent = hero.contactResponse;
+
+  if(hero.socials){
+    const map = {linkedin:'socLinkedin', github:'socGithub', instagram:'socInstagram', twitter:'socTwitter'};
+    Object.keys(map).forEach(key=>{
+      const el = document.getElementById(map[key]);
+      if(el && hero.socials[key]) el.setAttribute('href', hero.socials[key]);
+    });
+  }
+  if(hero.chips && hero.chips.length){
+    chipsData = hero.chips;
+    renderChips();
+  }
 }
 
 async function saveToSupabase(){
@@ -818,6 +877,7 @@ renderSkills(hwSkills,'skills-hw');
 renderSkills(swSkills,'skills-sw');
 renderTimeline();
 renderProjects();
+renderChips();
 loadFromSupabase();
 </script>
 </body>
