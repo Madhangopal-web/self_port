@@ -249,13 +249,13 @@ hr.div{border:none;border-top:1px solid var(--border);max-width:1050px;margin:0 
       </div>
       <input type="file" id="avatarInput" accept="image/*" onchange="handleAvatarChange(event)">
       <div class="avatar-hint"><i class="ti ti-camera" style="font-size:11px"></i> Change Photo</div>
-      <div class="hc-name editable-field">Madhan Gopal I</div>
-      <div class="hc-role editable-field">B.E. EEE — SMVEC, Puducherry</div>
+      <div class="hc-name editable-field" id="hcName">Madhan Gopal I</div>
+      <div class="hc-role editable-field" id="hcRole">B.E. EEE — SMVEC, Puducherry</div>
       <hr class="hc-divider">
-      <div class="hc-row"><i class="ti ti-map-pin" aria-hidden="true"></i><span class="editable-field">Puducherry, India</span></div>
-      <div class="hc-row"><i class="ti ti-school" aria-hidden="true"></i><span class="editable-field">Sri Manakula Vinayagar Engg. College</span></div>
-      <div class="hc-row"><i class="ti ti-calendar" aria-hidden="true"></i><span class="editable-field">Final Year · 2025 Batch</span></div>
-      <div class="hc-row"><i class="ti ti-briefcase" aria-hidden="true"></i><span class="editable-field">Open to Core + Software roles</span></div>
+      <div class="hc-row"><i class="ti ti-map-pin" aria-hidden="true"></i><span class="editable-field" id="hcLocation">Puducherry, India</span></div>
+      <div class="hc-row"><i class="ti ti-school" aria-hidden="true"></i><span class="editable-field" id="hcSchool">Sri Manakula Vinayagar Engg. College</span></div>
+      <div class="hc-row"><i class="ti ti-calendar" aria-hidden="true"></i><span class="editable-field" id="hcYear">Final Year · 2025 Batch</span></div>
+      <div class="hc-row"><i class="ti ti-briefcase" aria-hidden="true"></i><span class="editable-field" id="hcRoles">Open to Core + Software roles</span></div>
       <div class="hc-chips" id="heroChips">
         <span class="chip">ESP32</span><span class="chip">STM32</span><span class="chip">Python</span><span class="chip">React</span>
         <span class="chip green">● Open to Work</span>
@@ -271,57 +271,7 @@ hr.div{border:none;border-top:1px solid var(--border);max-width:1050px;margin:0 
   <div class="sec-label">// 01 — Selected Work</div>
   <div class="sec-title">Featured <span>Projects</span></div>
   <div class="sec-sub editable-field">A mix of embedded systems, IoT, and web development work built during college.</div>
-  <div class="proj-grid" id="projGrid">
-    <div class="proj-card">
-      <button class="card-del-btn" onclick="delCard(this)" title="Delete project"><i class="ti ti-trash"></i></button>
-      <div class="proj-icon"><i class="ti ti-face-id"></i></div>
-      <div class="proj-title editable-field">Face Recognition Attendance System</div>
-      <div class="proj-desc editable-field">Smart attendance system using ESP32-CAM, Python, OpenCV, and LBPH algorithm. Automatically marks attendance via real-time face detection.</div>
-      <div class="proj-tags"><span class="ptag">ESP32-CAM</span><span class="ptag">Python</span><span class="ptag">OpenCV</span><span class="ptag">LBPH</span></div>
-      <div class="proj-link-row" data-url="">
-        <i class="ti ti-link"></i>
-        <span class="proj-link-empty">No project URL added</span>
-        <input type="text" class="proj-link-input" value="" placeholder="https://your-project-link.com" onchange="updateProjLink(this)">
-      </div>
-    </div>
-    <div class="proj-card">
-      <button class="card-del-btn" onclick="delCard(this)" title="Delete project"><i class="ti ti-trash"></i></button>
-      <div class="proj-icon" style="background:rgba(124,58,237,0.12)"><i class="ti ti-message-circle" style="color:var(--accent2)"></i></div>
-      <div class="proj-title editable-field">Yap! — Real-Time Messaging App</div>
-      <div class="proj-desc editable-field">Privacy-focused messaging web app with YAP IDs, QR contact adding, real-time chat — built on mobile using Supabase and Vercel.</div>
-      <div class="proj-tags"><span class="ptag">Supabase</span><span class="ptag">JavaScript</span><span class="ptag">Vercel</span><span class="ptag">Real-time</span></div>
-      <div class="proj-link-row" data-url="https://yap-app.vercel.app">
-        <i class="ti ti-link"></i>
-        <a href="https://yap-app.vercel.app" target="_blank" rel="noopener">https://yap-app.vercel.app</a>
-        <input type="text" class="proj-link-input" value="https://yap-app.vercel.app" placeholder="https://your-project-link.com" onchange="updateProjLink(this)">
-      </div>
-    </div>
-    <div class="proj-card">
-      <button class="card-del-btn" onclick="delCard(this)" title="Delete project"><i class="ti ti-trash"></i></button>
-      <div class="proj-icon" style="background:rgba(16,185,129,0.1)"><i class="ti ti-cpu" style="color:#10b981"></i></div>
-      <div class="proj-title editable-field">STM32H5 TrustZone Firmware</div>
-      <div class="proj-desc editable-field">Merged keypad and LCD display functionality into TrustZone-enabled firmware on STM32H5xx with secure/non-secure partitioning.</div>
-      <div class="proj-tags"><span class="ptag">STM32H5</span><span class="ptag">TrustZone</span><span class="ptag">C</span><span class="ptag">Firmware</span></div>
-      <div class="proj-link-row" data-url="">
-        <i class="ti ti-link"></i>
-        <span class="proj-link-empty">No project URL added</span>
-        <input type="text" class="proj-link-input" value="" placeholder="https://your-project-link.com" onchange="updateProjLink(this)">
-      </div>
-    </div>
-    <div class="proj-card">
-      <button class="card-del-btn" onclick="delCard(this)" title="Delete project"><i class="ti ti-trash"></i></button>
-      <div class="proj-icon" style="background:rgba(251,146,60,0.1)"><i class="ti ti-building-agency" style="color:#fb923c"></i></div>
-      <div class="proj-title editable-field">Veluryn Agency Website</div>
-      <div class="proj-desc editable-field">Single-file HTML agency site with dark navy aesthetic. Includes VASD operational framework and AI video content prompts.</div>
-      <div class="proj-tags"><span class="ptag">HTML/CSS</span><span class="ptag">JavaScript</span><span class="ptag">AI</span><span class="ptag">Design</span></div>
-      <div class="proj-link-row" data-url="https://veluryn.agency">
-        <i class="ti ti-link"></i>
-        <a href="https://veluryn.agency" target="_blank" rel="noopener">https://veluryn.agency</a>
-        <input type="text" class="proj-link-input" value="https://veluryn.agency" placeholder="https://your-project-link.com" onchange="updateProjLink(this)">
-      </div>
-    </div>
-    <div class="add-card" onclick="openModal('project')"><i class="ti ti-plus"></i><span>Add Project</span></div>
-  </div>
+  <div class="proj-grid" id="projGrid"></div>
 </section>
 
 <hr class="div">
@@ -412,33 +362,47 @@ hr.div{border:none;border-top:1px solid var(--border);max-width:1050px;margin:0 
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+// ===== SUPABASE SETUP =====
+const SUPABASE_URL = 'https://ijohrltusoiehrpufrbf.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_km7hJLNHWUiZ_HaDbFUvNg_bEayAhGE';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 let isEdit = false;
 let modalType = '', modalMeta = '';
+let saveTimer = null;
 
-const hwSkills = [
+let hwSkills = [
   {name:'ESP32 / ESP32-CAM',pct:88,level:'Advanced'},
   {name:'STM32 (H5xx)',pct:72,level:'Intermediate'},
   {name:'Circuit Design / EEE',pct:85,level:'Advanced'},
   {name:'MATLAB / Simulink',pct:68,level:'Intermediate'},
   {name:'C / Embedded C',pct:74,level:'Intermediate'}
 ];
-const swSkills = [
+let swSkills = [
   {name:'Python',pct:84,level:'Advanced'},
   {name:'HTML / CSS / JS',pct:82,level:'Advanced'},
   {name:'React / Supabase',pct:65,level:'Intermediate'},
   {name:'OpenCV / Vision',pct:70,level:'Intermediate'},
   {name:'Canva / Graphic Design',pct:88,level:'Advanced'}
 ];
-const timelineData = [
+let timelineData = [
   {year:'2021 — Present',title:'B.E. Electrical & Electronics Engineering',sub:'Sri Manakula Vinayagar Engineering College, Puducherry',active:true},
   {year:'2024',title:'Embedded Systems Projects',sub:'Face Recognition Attendance · STM32 TrustZone Firmware',active:false},
   {year:'2024',title:'Full-Stack Web Development',sub:'Yap! Messaging App · Veluryn Agency · Trivon Portfolio',active:false},
   {year:'2023 — 2024',title:'Certifications & Programs',sub:'Wadhwani Ignite Lite · NxtWave AI · Mahindra Rise',active:false}
 ];
+let projectsData = [
+  {title:'Face Recognition Attendance System', desc:'Smart attendance system using ESP32-CAM, Python, OpenCV, and LBPH algorithm. Automatically marks attendance via real-time face detection.', tags:['ESP32-CAM','Python','OpenCV','LBPH'], url:'', icon:'ti-face-id', iconBg:'rgba(79,142,247,0.12)', iconColor:'var(--accent)'},
+  {title:'Yap! — Real-Time Messaging App', desc:'Privacy-focused messaging web app with YAP IDs, QR contact adding, real-time chat — built on mobile using Supabase and Vercel.', tags:['Supabase','JavaScript','Vercel','Real-time'], url:'https://yap-app.vercel.app', icon:'ti-message-circle', iconBg:'rgba(124,58,237,0.12)', iconColor:'var(--accent2)'},
+  {title:'STM32H5 TrustZone Firmware', desc:'Merged keypad and LCD display functionality into TrustZone-enabled firmware on STM32H5xx with secure/non-secure partitioning.', tags:['STM32H5','TrustZone','C','Firmware'], url:'', icon:'ti-cpu', iconBg:'rgba(16,185,129,0.1)', iconColor:'#10b981'},
+  {title:'Veluryn Agency Website', desc:'Single-file HTML agency site with dark navy aesthetic. Includes VASD operational framework and AI video content prompts.', tags:['HTML/CSS','JavaScript','AI','Design'], url:'https://veluryn.agency', icon:'ti-building-agency', iconBg:'rgba(251,146,60,0.1)', iconColor:'#fb923c'}
+];
 
 function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
 
+// ===== RENDER FUNCTIONS =====
 function renderSkills(arr, containerId){
   const c = document.getElementById(containerId);
   c.innerHTML = '';
@@ -467,12 +431,14 @@ function updateSkillPct(slider, cid, idx){
   const row = slider.closest('.skill-bar-row');
   row.querySelector('.skill-fill').style.width = slider.value+'%';
   row.querySelector('.skill-pct').textContent = slider.value+'%';
+  queueSave();
 }
 
 function deleteSkill(cid, idx){
   const arr = cid==='skills-hw'?hwSkills:swSkills;
   arr.splice(idx,1);
   renderSkills(arr,cid);
+  queueSave();
 }
 
 function renderTimeline(){
@@ -484,41 +450,53 @@ function renderTimeline(){
     el.innerHTML=`
       <div class="tl-dot${t.active?' active':''}"><i class="ti ti-${t.active?'school':'device-desktop'}"></i></div>
       <div style="flex:1">
-        <div class="tl-year editable-field">${t.year}</div>
-        <div class="tl-title editable-field">${t.title}</div>
-        <div class="tl-sub editable-field">${t.sub}</div>
+        <div class="tl-year editable-field" oninput="syncTimelineField(${i},'year',this)" contenteditable="${isEdit}">${t.year}</div>
+        <div class="tl-title editable-field" oninput="syncTimelineField(${i},'title',this)" contenteditable="${isEdit}">${t.title}</div>
+        <div class="tl-sub editable-field" oninput="syncTimelineField(${i},'sub',this)" contenteditable="${isEdit}">${t.sub}</div>
       </div>
       <button class="tl-del" onclick="delTimeline(${i})"><i class="ti ti-trash"></i></button>`;
     c.appendChild(el);
   });
 }
 
-function delTimeline(i){timelineData.splice(i,1);renderTimeline()}
-function delCard(btn){if(confirm('Delete this project?'))btn.closest('.proj-card').remove()}
+function syncTimelineField(i,key,el){ timelineData[i][key]=el.textContent; queueSave(); }
+function delTimeline(i){timelineData.splice(i,1);renderTimeline();queueSave();}
 
-function updateProjLink(input){
-  const row = input.closest('.proj-link-row');
-  const url = input.value.trim();
-  row.setAttribute('data-url', url);
-  let a = row.querySelector('a');
-  let empty = row.querySelector('.proj-link-empty');
-  if(url){
-    if(a){ a.href = url; a.textContent = url; }
-    else if(empty){
-      const newA = document.createElement('a');
-      newA.href = url; newA.target = '_blank'; newA.rel = 'noopener'; newA.textContent = url;
-      empty.replaceWith(newA);
-    }
-  } else {
-    if(a){
-      const span = document.createElement('span');
-      span.className = 'proj-link-empty';
-      span.textContent = 'No project URL added';
-      a.replaceWith(span);
-    }
-  }
+function renderProjects(){
+  const grid = document.getElementById('projGrid');
+  grid.innerHTML = '';
+  projectsData.forEach((p,i)=>{
+    const card = document.createElement('div');
+    card.className = 'proj-card';
+    const linkInner = p.url
+      ? `<i class="ti ti-link"></i><a href="${p.url}" target="_blank" rel="noopener">${p.url}</a><input type="text" class="proj-link-input" value="${p.url}" placeholder="https://your-project-link.com" oninput="syncProjField(${i},'url',this.value)">`
+      : `<i class="ti ti-link"></i><span class="proj-link-empty">No project URL added</span><input type="text" class="proj-link-input" value="" placeholder="https://your-project-link.com" oninput="syncProjField(${i},'url',this.value)">`;
+    card.innerHTML = `
+      <button class="card-del-btn" onclick="delProject(${i})" title="Delete project"><i class="ti ti-trash"></i></button>
+      <div class="proj-icon" style="background:${p.iconBg}"><i class="ti ${p.icon}" style="color:${p.iconColor}"></i></div>
+      <div class="proj-title editable-field" contenteditable="${isEdit}" oninput="syncProjField(${i},'title',this.textContent)">${p.title}</div>
+      <div class="proj-desc editable-field" contenteditable="${isEdit}" oninput="syncProjField(${i},'desc',this.textContent)">${p.desc}</div>
+      <div class="proj-tags">${p.tags.map(t=>`<span class="ptag">${t}</span>`).join('')}</div>
+      <div class="proj-link-row" data-url="${p.url}">${linkInner}</div>`;
+    grid.appendChild(card);
+  });
+  const addCard = document.createElement('div');
+  addCard.className = 'add-card';
+  addCard.onclick = ()=>openModal('project');
+  addCard.innerHTML = '<i class="ti ti-plus"></i><span>Add Project</span>';
+  grid.appendChild(addCard);
 }
 
+function syncProjField(i,key,val){ projectsData[i][key]=val; queueSave(); }
+
+function delProject(i){
+  if(!confirm('Delete this project?')) return;
+  projectsData.splice(i,1);
+  renderProjects();
+  queueSave();
+}
+
+// ===== EDIT MODE =====
 function promptEditCode(){
   if(isEdit){ toggleEdit(); return; }
   const entered = prompt('Enter your edit code to unlock:');
@@ -561,9 +539,21 @@ function toggleEdit(){
     lbl.textContent='Edit Mode';
     banner.classList.remove('show');
     document.querySelectorAll('.editable-field').forEach(el=>el.contentEditable='false');
+    saveToSupabase();
   }
+  // keep project/timeline contenteditable in sync with mode
+  renderProjects();
+  renderTimeline();
 }
 
+// Listen for edits on plain editable-field spans/divs not handled above (hero text, about text, contact info, chips)
+document.addEventListener('input', function(e){
+  if(e.target.classList && e.target.classList.contains('editable-field')){
+    queueSave();
+  }
+});
+
+// ===== MODAL =====
 function openModal(type, meta=''){
   modalType=type; modalMeta=meta;
   const title = document.getElementById('modalTitle');
@@ -604,24 +594,9 @@ function saveModal(){
     if(!title)return;
     const desc=document.getElementById('m-desc').value.trim();
     const tags=(document.getElementById('m-tags').value||'').split(',').map(t=>t.trim()).filter(Boolean);
-    const grid=document.getElementById('projGrid');
-    const addCard=grid.querySelector('.add-card');
     const url=document.getElementById('m-url').value.trim();
-    const card=document.createElement('div');
-    card.className='proj-card';
-    const linkInner = url
-      ? `<i class="ti ti-link"></i><a href="${url}" target="_blank" rel="noopener">${url}</a><input type="text" class="proj-link-input" value="${url}" placeholder="https://your-project-link.com" onchange="updateProjLink(this)">`
-      : `<i class="ti ti-link"></i><span class="proj-link-empty">No project URL added</span><input type="text" class="proj-link-input" value="" placeholder="https://your-project-link.com" onchange="updateProjLink(this)">`;
-    card.innerHTML=`
-      <button class="card-del-btn" onclick="delCard(this)"><i class="ti ti-trash"></i></button>
-      <div class="proj-icon"><i class="ti ti-code"></i></div>
-      <div class="proj-title editable-field">${title}</div>
-      <div class="proj-desc editable-field">${desc}</div>
-      <div class="proj-tags">${tags.map(t=>`<span class="ptag">${t}</span>`).join('')}</div>
-      <div class="proj-link-row" data-url="${url}">${linkInner}</div>`;
-    if(isEdit)card.querySelector('.proj-title').contentEditable='true';
-    if(isEdit)card.querySelector('.proj-desc').contentEditable='true';
-    grid.insertBefore(card,addCard);
+    projectsData.push({title,desc,tags,url,icon:'ti-code',iconBg:'rgba(79,142,247,0.12)',iconColor:'var(--accent)'});
+    renderProjects();
   } else if(modalType==='skill'){
     const name=document.getElementById('m-name').value.trim();
     const pct=+document.getElementById('m-pct').value||70;
@@ -646,20 +621,24 @@ function saveModal(){
     span.textContent=label;
     document.getElementById('heroChips').insertBefore(span,document.getElementById('addChipBtn'));
   }
+  queueSave();
   closeModal();
 }
 
 document.getElementById('modalBg').addEventListener('click',function(e){if(e.target===this)closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
+// ===== AVATAR UPLOAD (Supabase Storage) =====
 function triggerAvatarUpload(){
   if(!isEdit) return;
   document.getElementById('avatarInput').click();
 }
 
-function handleAvatarChange(e){
+async function handleAvatarChange(e){
   const file = e.target.files[0];
   if(!file) return;
+
+  // show local preview immediately
   const reader = new FileReader();
   reader.onload = function(ev){
     const img = document.getElementById('avatarImg');
@@ -669,14 +648,177 @@ function handleAvatarChange(e){
     initial.style.display = 'none';
   };
   reader.readAsDataURL(file);
+
+  // upload to Supabase Storage
+  showSaveStatus('Uploading photo...');
+  const ext = file.name.split('.').pop();
+  const filePath = `profile-${Date.now()}.${ext}`;
+  const { error: uploadError } = await sb.storage.from('avatars').upload(filePath, file, { upsert: true });
+  if(uploadError){
+    console.error('Avatar upload failed:', uploadError);
+    showSaveStatus('Photo upload failed', true);
+    return;
+  }
+  const { data } = sb.storage.from('avatars').getPublicUrl(filePath);
+  window.__avatarUrl = data.publicUrl;
+  queueSave();
+  showSaveStatus('Photo saved ✓');
 }
 
+// ===== SAVE STATUS INDICATOR =====
+function showSaveStatus(msg, isError=false){
+  let el = document.getElementById('saveStatus');
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'saveStatus';
+    el.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#1a1a1f;border:1px solid #2a2a32;color:#c8c8d8;padding:0.6rem 1rem;border-radius:8px;font-size:0.78rem;z-index:999;transition:opacity 0.3s;box-shadow:0 4px 20px rgba(0,0,0,0.3)';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.style.borderColor = isError ? 'rgba(226,75,74,0.4)' : 'rgba(16,185,129,0.4)';
+  el.style.color = isError ? '#e24b4a' : '#10b981';
+  el.style.opacity = '1';
+  clearTimeout(el._t);
+  el._t = setTimeout(()=>{ el.style.opacity='0'; }, 2200);
+}
+
+// ===== SUPABASE SAVE / LOAD =====
+function queueSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveToSupabase, 1200);
+}
+
+function collectHeroData(){
+  return {
+    status: document.getElementById('heroStatus')?.textContent || '',
+    role: document.getElementById('heroRole')?.textContent || '',
+    desc: document.getElementById('heroDesc')?.textContent || '',
+    hcName: document.getElementById('hcName')?.textContent || '',
+    hcRole: document.getElementById('hcRole')?.textContent || '',
+    hcLocation: document.getElementById('hcLocation')?.textContent || '',
+    hcSchool: document.getElementById('hcSchool')?.textContent || '',
+    hcYear: document.getElementById('hcYear')?.textContent || '',
+    hcRoles: document.getElementById('hcRoles')?.textContent || '',
+    stats: Array.from(document.querySelectorAll('#heroStats .hstat')).map(h=>({
+      num: h.querySelector('.hstat-num')?.textContent || '',
+      label: h.querySelector('.hstat-label')?.textContent || ''
+    })),
+    chips: Array.from(document.querySelectorAll('#heroChips .chip')).map(c=>c.textContent),
+    aboutP1: document.getElementById('aboutP1')?.textContent || '',
+    aboutP2: document.getElementById('aboutP2')?.textContent || '',
+    highlights: Array.from(document.querySelectorAll('#highlights .hl-card')).map(h=>({
+      num: h.querySelector('.hl-num')?.textContent || '',
+      label: h.querySelector('.hl-label')?.textContent || ''
+    })),
+    contactEmail: document.querySelectorAll('.ci-val')[0]?.textContent || '',
+    contactLocation: document.querySelectorAll('.ci-val')[1]?.textContent || '',
+    contactResponse: document.querySelectorAll('.ci-val')[2]?.textContent || ''
+  };
+}
+
+function applyHeroData(hero){
+  if(!hero) return;
+  const set = (id,val)=>{ const el=document.getElementById(id); if(el && val!==undefined) el.textContent = val; };
+  set('heroStatus', hero.status);
+  set('heroRole', hero.role);
+  set('heroDesc', hero.desc);
+  set('hcName', hero.hcName);
+  set('hcRole', hero.hcRole);
+  set('hcLocation', hero.hcLocation);
+  set('hcSchool', hero.hcSchool);
+  set('hcYear', hero.hcYear);
+  set('hcRoles', hero.hcRoles);
+  set('aboutP1', hero.aboutP1);
+  set('aboutP2', hero.aboutP2);
+
+  if(hero.stats){
+    document.querySelectorAll('#heroStats .hstat').forEach((h,i)=>{
+      if(hero.stats[i]){
+        h.querySelector('.hstat-num').textContent = hero.stats[i].num;
+        h.querySelector('.hstat-label').textContent = hero.stats[i].label;
+      }
+    });
+  }
+  if(hero.highlights){
+    document.querySelectorAll('#highlights .hl-card').forEach((h,i)=>{
+      if(hero.highlights[i]){
+        h.querySelector('.hl-num').textContent = hero.highlights[i].num;
+        h.querySelector('.hl-label').textContent = hero.highlights[i].label;
+      }
+    });
+  }
+  if(hero.chips && hero.chips.length){
+    const wrap = document.getElementById('heroChips');
+    const addBtn = document.getElementById('addChipBtn');
+    wrap.querySelectorAll('.chip').forEach(c=>c.remove());
+    hero.chips.forEach(label=>{
+      const span = document.createElement('span');
+      span.className = label.includes('Open to Work') ? 'chip green' : 'chip';
+      span.textContent = label;
+      wrap.insertBefore(span, addBtn);
+    });
+  }
+  const cvals = document.querySelectorAll('.ci-val');
+  if(cvals[0] && hero.contactEmail) cvals[0].textContent = hero.contactEmail;
+  if(cvals[1] && hero.contactLocation) cvals[1].textContent = hero.contactLocation;
+  if(cvals[2] && hero.contactResponse) cvals[2].textContent = hero.contactResponse;
+}
+
+async function saveToSupabase(){
+  showSaveStatus('Saving...');
+  const payload = {
+    hero: collectHeroData(),
+    skills: { hw: hwSkills, sw: swSkills },
+    projects: projectsData,
+    timeline: timelineData,
+    avatar_url: window.__avatarUrl || null,
+    updated_at: new Date().toISOString()
+  };
+  const { error } = await sb.from('portfolio_data').update(payload).eq('id','main');
+  if(error){
+    console.error('Save failed:', error);
+    showSaveStatus('Save failed — check console', true);
+  } else {
+    showSaveStatus('Saved ✓');
+  }
+}
+
+async function loadFromSupabase(){
+  const { data, error } = await sb.from('portfolio_data').select('*').eq('id','main').single();
+  if(error || !data){
+    console.warn('No saved data yet, using defaults.', error);
+    return;
+  }
+  if(data.skills){
+    if(data.skills.hw && data.skills.hw.length) hwSkills = data.skills.hw;
+    if(data.skills.sw && data.skills.sw.length) swSkills = data.skills.sw;
+  }
+  if(data.projects && data.projects.length) projectsData = data.projects;
+  if(data.timeline && data.timeline.length) timelineData = data.timeline;
+  if(data.avatar_url){
+    window.__avatarUrl = data.avatar_url;
+    const img = document.getElementById('avatarImg');
+    const initial = document.getElementById('avatarInitial');
+    img.src = data.avatar_url;
+    img.style.display = 'block';
+    initial.style.display = 'none';
+  }
+  applyHeroData(data.hero);
+  renderSkills(hwSkills,'skills-hw');
+  renderSkills(swSkills,'skills-sw');
+  renderTimeline();
+  renderProjects();
+}
+
+// ===== INIT =====
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})},{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 renderSkills(hwSkills,'skills-hw');
 renderSkills(swSkills,'skills-sw');
 renderTimeline();
+renderProjects();
+loadFromSupabase();
 </script>
 </body>
 </html>
