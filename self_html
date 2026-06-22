@@ -1,0 +1,668 @@
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0d0f;--bg2:#111114;--bg3:#16161a;--card:#1a1a1f;--border:#2a2a32;
+  --accent:#4f8ef7;--accent2:#7c3aed;--white:#f0f0f5;--muted:#8888a0;--text:#c8c8d8;
+  --danger:#e24b4a;--success:#10b981;
+}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;font-size:15px;line-height:1.6}
+
+nav{background:rgba(13,13,15,0.95);border-bottom:1px solid var(--border);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:200}
+.logo{font-weight:700;font-size:1.05rem;color:var(--white);letter-spacing:0.05em}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{font-size:0.78rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:color 0.2s}
+.nav-links a:hover{color:var(--white)}
+.nav-right{display:flex;gap:0.6rem;align-items:center}
+.edit-toggle{display:flex;align-items:center;gap:0.5rem;background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.3);color:var(--accent);padding:0.35rem 0.9rem;border-radius:6px;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s}
+.edit-toggle.active{background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.35);color:var(--success)}
+.edit-toggle i{font-size:14px}
+
+section{padding:4rem 2.5rem;max-width:1050px;margin:0 auto}
+.sec-label{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem}
+.sec-title{font-size:2rem;font-weight:800;color:var(--white);letter-spacing:-0.02em;line-height:1.1}
+.sec-title span{color:var(--accent)}
+.sec-sub{font-size:0.87rem;color:var(--muted);margin-top:0.5rem}
+
+.edit-banner{background:rgba(79,142,247,0.07);border:1px solid rgba(79,142,247,0.2);border-radius:8px;padding:0.6rem 1rem;font-size:0.8rem;color:var(--accent);margin-bottom:2rem;display:none;align-items:center;gap:0.5rem}
+.edit-banner i{font-size:15px}
+.edit-banner.show{display:flex}
+
+/* HERO */
+#hero{background:var(--bg);padding:5rem 2.5rem 4rem;position:relative}
+.hero-grid{display:grid;grid-template-columns:1fr 340px;gap:3.5rem;align-items:start;max-width:1050px;margin:0 auto}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(79,142,247,0.25);padding:0.3rem 0.75rem;border-radius:20px;margin-bottom:1rem}
+.dot{width:5px;height:5px;background:var(--accent);border-radius:50%;animation:blink 1.5s infinite}
+.hero-name{font-size:3.2rem;font-weight:800;color:var(--white);line-height:1.05;letter-spacing:-0.02em}
+.grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-role{font-size:1rem;color:var(--muted);margin-top:0.6rem}
+.hero-desc{font-size:0.88rem;color:var(--text);line-height:1.75;margin-top:1rem;max-width:460px}
+.hero-btns{display:flex;gap:0.7rem;margin-top:1.8rem;flex-wrap:wrap}
+.btn-p{background:var(--accent);color:#fff;border:none;padding:0.6rem 1.4rem;font-size:0.82rem;font-weight:600;cursor:pointer;border-radius:6px;transition:opacity 0.2s}
+.btn-p:hover{opacity:0.85}
+.btn-s{background:transparent;color:var(--white);border:1px solid var(--border);padding:0.6rem 1.4rem;font-size:0.82rem;font-weight:500;cursor:pointer;border-radius:6px;transition:all 0.2s}
+.btn-s:hover{border-color:var(--accent);color:var(--accent)}
+.hero-stats{display:flex;gap:1.8rem;margin-top:2rem}
+.hstat{border-left:2px solid var(--accent);padding-left:0.9rem}
+.hstat-num{font-size:1.4rem;font-weight:800;color:var(--white)}
+.hstat-label{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.hero-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem;position:relative}
+.avatar{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:2.2rem;font-weight:800;color:#fff;margin-bottom:1.2rem;overflow:hidden;position:relative;cursor:default;flex-shrink:0;border:3px solid rgba(79,142,247,0.25)}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.avatar-overlay{position:absolute;inset:0;border-radius:50%;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s;cursor:pointer}
+.avatar-overlay i{font-size:26px;color:#fff}
+.edit-mode .avatar{cursor:pointer}
+.edit-mode .avatar:hover .avatar-overlay{opacity:1}
+.avatar-hint{display:none;font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);text-align:center;margin-top:-0.5rem;margin-bottom:0.8rem}
+.edit-mode .avatar-hint{display:block}
+#avatarInput{display:none}
+.hc-name{font-size:1rem;font-weight:700;color:var(--white)}
+.hc-role{font-size:0.75rem;color:var(--muted);margin-top:0.15rem}
+.hc-divider{border:none;border-top:1px solid var(--border);margin:1rem 0}
+.hc-row{display:flex;align-items:center;gap:0.6rem;font-size:0.8rem;color:var(--text);margin-bottom:0.6rem}
+.hc-row i{color:var(--accent);font-size:14px}
+.chip{display:inline-block;background:rgba(79,142,247,0.1);color:var(--accent);border:1px solid rgba(79,142,247,0.2);font-size:0.66rem;padding:0.18rem 0.55rem;border-radius:4px;font-weight:600;letter-spacing:0.05em}
+.chip.green{background:rgba(16,185,129,0.1);color:var(--success);border-color:rgba(16,185,129,0.2)}
+.hc-chips{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1rem}
+
+/* EDITABLE FIELD */
+.editable-field{position:relative}
+.editable-field .field-actions{display:none;position:absolute;top:-10px;right:0;gap:4px;z-index:10}
+.edit-mode .editable-field:hover .field-actions{display:flex}
+.field-actions button{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:3px 7px;border-radius:5px;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:3px;transition:all 0.15s;white-space:nowrap}
+.field-actions button:hover{color:var(--white);border-color:var(--accent)}
+.field-actions button.del:hover{color:var(--danger);border-color:var(--danger)}
+.field-actions button i{font-size:11px}
+[contenteditable="true"]{outline:2px solid rgba(79,142,247,0.4);border-radius:4px;padding:2px 4px;cursor:text;min-width:20px}
+[contenteditable="true"]:focus{outline:2px solid var(--accent)}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.4rem;position:relative;overflow:visible;transition:all 0.25s}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:12px 12px 0 0;transform:scaleX(0);transition:transform 0.3s;transform-origin:left}
+.proj-card:hover::before{transform:scaleX(1)}
+.edit-mode .proj-card:hover{border-color:rgba(79,142,247,0.3)}
+.proj-icon{width:38px;height:38px;border-radius:9px;background:rgba(79,142,247,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:0.9rem}
+.proj-icon i{font-size:19px;color:var(--accent)}
+.proj-title{font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:0.35rem}
+.proj-desc{font-size:0.8rem;color:var(--muted);line-height:1.6}
+.proj-tags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:0.9rem}
+.ptag{font-size:0.66rem;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);padding:0.18rem 0.5rem;border-radius:4px}
+.proj-link-row{display:flex;align-items:center;gap:0.4rem;margin-top:0.8rem;padding-top:0.7rem;border-top:1px solid var(--border)}
+.proj-link-row i{font-size:13px;color:var(--accent);flex-shrink:0}
+.proj-link-row a{font-size:0.76rem;color:var(--accent);text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.proj-link-row a:hover{text-decoration:underline}
+.proj-link-empty{font-size:0.76rem;color:var(--muted);font-style:italic;flex:1}
+.proj-link-input{display:none;background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:0.3rem 0.6rem;font-size:0.76rem;color:var(--white);flex:1;outline:none;font-family:inherit}
+.edit-mode .proj-link-input{display:block}
+.edit-mode .proj-link-row a,.edit-mode .proj-link-row .proj-link-empty{display:none}
+.proj-link-input:focus{border-color:rgba(79,142,247,0.5)}
+.card-del-btn{position:absolute;top:10px;right:10px;background:rgba(226,75,74,0.1);border:1px solid rgba(226,75,74,0.25);color:var(--danger);width:28px;height:28px;border-radius:6px;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all 0.15s}
+.card-del-btn:hover{background:rgba(226,75,74,0.2)}
+.edit-mode .card-del-btn{display:flex}
+.add-card{border:1px dashed var(--border);background:transparent;cursor:pointer;display:none;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;color:var(--muted);font-size:0.82rem;border-radius:12px;min-height:160px;transition:all 0.2s}
+.add-card:hover{border-color:var(--accent);color:var(--accent)}
+.add-card i{font-size:24px}
+.edit-mode .add-card{display:flex}
+
+/* SKILLS */
+.skills-wrap{margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.skill-group-title{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem;display:flex;align-items:center;gap:0.5rem}
+.skill-group-title i{font-size:14px;color:var(--accent)}
+.skill-bar-row{margin-bottom:0.9rem;position:relative;padding-right:0}
+.skill-bar-header{display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text);margin-bottom:0.35rem;align-items:center;gap:0.5rem}
+.skill-name-wrap{display:flex;align-items:center;gap:0.4rem;flex:1;min-width:0}
+.skill-track{background:rgba(255,255,255,0.06);border-radius:3px;height:4px;flex:1;overflow:hidden;position:relative}
+.skill-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 1s cubic-bezier(0.16,1,0.3,1)}
+.skill-pct{font-size:0.72rem;color:var(--muted);min-width:34px;text-align:right}
+.skill-range{display:none;width:80px;accent-color:var(--accent)}
+.edit-mode .skill-range{display:inline-block}
+.edit-mode .skill-pct{display:none}
+.skill-del{display:none;background:none;border:none;color:var(--danger);cursor:pointer;font-size:13px;padding:2px;opacity:0.7;transition:opacity 0.15s}
+.skill-del:hover{opacity:1}
+.edit-mode .skill-del{display:inline-flex}
+.add-skill-btn{display:none;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--muted);cursor:pointer;border:1px dashed var(--border);padding:0.4rem 0.8rem;border-radius:6px;margin-top:0.5rem;background:none;transition:all 0.2s;width:100%;justify-content:center}
+.add-skill-btn:hover{color:var(--accent);border-color:var(--accent)}
+.edit-mode .add-skill-btn{display:flex}
+
+/* TIMELINE */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;margin-top:2rem}
+.about-timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:1rem;padding-bottom:1.4rem;position:relative}
+.tl-item:not(:last-child)::after{content:'';position:absolute;left:15px;top:32px;bottom:0;width:1px;background:var(--border)}
+.tl-dot{width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1}
+.tl-dot i{font-size:13px;color:var(--accent)}
+.tl-dot.active{background:rgba(79,142,247,0.12);border-color:rgba(79,142,247,0.35)}
+.tl-year{font-size:0.68rem;color:var(--muted);margin-bottom:0.12rem}
+.tl-title{font-size:0.85rem;font-weight:600;color:var(--white)}
+.tl-sub{font-size:0.76rem;color:var(--muted)}
+.tl-del{display:none;background:none;border:1px solid rgba(226,75,74,0.25);color:var(--danger);border-radius:4px;padding:2px 6px;font-size:11px;cursor:pointer;margin-left:auto;align-self:start;transition:all 0.15s}
+.tl-del:hover{background:rgba(226,75,74,0.1)}
+.edit-mode .tl-del{display:block}
+.add-tl-btn{display:none;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--muted);cursor:pointer;border:1px dashed var(--border);padding:0.4rem 0.8rem;border-radius:6px;margin-top:0.5rem;background:none;transition:all 0.2s;width:100%;justify-content:center}
+.add-tl-btn:hover{color:var(--accent);border-color:var(--accent)}
+.edit-mode .add-tl-btn{display:flex}
+
+/* HIGHLIGHTS */
+.about-highlights{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-top:1.2rem}
+.hl-card{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:0.9rem;position:relative}
+.hl-num{font-size:1.3rem;font-weight:800;color:var(--accent)}
+.hl-label{font-size:0.7rem;color:var(--muted);margin-top:0.15rem}
+
+/* CONTACT */
+.contact-wrap{background:var(--bg2);padding:4rem 2.5rem}
+.contact-inner{max-width:1050px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start}
+.cf-label{font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem;margin-top:0.8rem}
+.cf-input{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:0.65rem 0.9rem;font-size:0.85rem;color:var(--white);width:100%;outline:none;transition:border-color 0.2s;font-family:inherit}
+.cf-input:focus{border-color:rgba(79,142,247,0.5)}
+.cf-input::placeholder{color:var(--muted)}
+.cf-submit{background:var(--accent);color:#fff;border:none;padding:0.75rem;border-radius:7px;font-size:0.85rem;font-weight:600;cursor:pointer;width:100%;transition:opacity 0.2s;margin-top:0.8rem}
+.cf-submit:hover{opacity:0.85}
+.ci-row{display:flex;align-items:center;gap:0.7rem;margin-bottom:1rem}
+.ci-icon{width:34px;height:34px;border-radius:7px;background:rgba(79,142,247,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ci-icon i{font-size:16px;color:var(--accent)}
+.ci-label{font-size:0.7rem;color:var(--muted)}
+.ci-val{font-size:0.85rem;color:var(--white);font-weight:500}
+.socials{display:flex;gap:0.6rem;margin-top:1.5rem}
+.soc-btn{width:36px;height:36px;border-radius:7px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s}
+.soc-btn:hover{border-color:rgba(79,142,247,0.4)}
+.soc-btn i{font-size:16px;color:var(--muted)}
+
+footer{border-top:1px solid var(--border);padding:1.2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.72rem;color:var(--muted)}
+footer span{color:var(--accent)}
+hr.div{border:none;border-top:1px solid var(--border);max-width:1050px;margin:0 auto}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:999;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1.8rem;width:420px;max-width:90vw}
+.modal h3{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:1.2rem}
+.modal label{font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:0.3rem;margin-top:0.8rem}
+.modal input,.modal textarea,.modal select{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:0.6rem 0.85rem;font-size:0.85rem;color:var(--white);width:100%;outline:none;font-family:inherit;transition:border-color 0.2s}
+.modal input:focus,.modal textarea:focus,.modal select:focus{border-color:rgba(79,142,247,0.5)}
+.modal input::placeholder,.modal textarea::placeholder{color:var(--muted)}
+.modal-btns{display:flex;gap:0.6rem;margin-top:1.4rem}
+.modal-cancel{flex:1;background:transparent;border:1px solid var(--border);color:var(--text);padding:0.6rem;border-radius:7px;cursor:pointer;font-size:0.85rem;transition:border-color 0.2s}
+.modal-cancel:hover{border-color:var(--muted)}
+.modal-save{flex:2;background:var(--accent);border:none;color:#fff;padding:0.6rem;border-radius:7px;cursor:pointer;font-size:0.85rem;font-weight:600;transition:opacity 0.2s}
+.modal-save:hover{opacity:0.85}
+
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.in{opacity:1;transform:none}
+</style>
+
+<nav>
+  <div class="logo">M<span>.</span>Madhan Gopal I</div>
+  <ul class="nav-links">
+    <li><a onclick="scrollTo('projects-sec')">Projects</a></li>
+    <li><a onclick="scrollTo('skills-sec')">Skills</a></li>
+    <li><a onclick="scrollTo('about-sec')">About</a></li>
+    <li><a onclick="scrollTo('contact-sec')">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="edit-toggle" id="editToggle" onclick="promptEditCode()">
+      <i class="ti ti-lock" id="editIcon"></i> <span id="editLabel">Edit Mode</span>
+    </button>
+  </div>
+</nav>
+
+<div id="editBanner" class="edit-banner">
+  <i class="ti ti-info-circle"></i> Edit mode is ON — click any text to edit it, use sliders for skill levels, and use + / trash buttons to add or remove items.
+</div>
+
+<div id="hero" style="background:var(--bg);padding:5rem 2.5rem 4rem">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag"><span class="dot"></span> <span id="heroStatus" class="editable-field">Available for Opportunities</span></div>
+      <div class="hero-name" id="heroName">Madhan Gopal<br><span class="grad">I</span></div>
+      <div class="hero-role editable-field" id="heroRole">EEE Engineer · Embedded Systems · Web Developer</div>
+      <p class="hero-desc editable-field" id="heroDesc">Final-year Electrical & Electronics Engineering student at SMVEC, Puducherry. I build embedded firmware, IoT systems, and full-stack web apps — bridging hardware and software.</p>
+      <div class="hero-btns">
+        <button class="btn-p" onclick="scrollTo('projects-sec')">View My Work →</button>
+        <button class="btn-s" onclick="scrollTo('contact-sec')">Get In Touch</button>
+      </div>
+      <div class="hero-stats" id="heroStats">
+        <div class="hstat"><div class="hstat-num editable-field">5+</div><div class="hstat-label editable-field">Projects</div></div>
+        <div class="hstat" style="border-left:2px solid var(--accent);padding-left:0.9rem"><div class="hstat-num editable-field">2+</div><div class="hstat-label editable-field">Years Coding</div></div>
+        <div class="hstat" style="border-left:2px solid var(--accent);padding-left:0.9rem"><div class="hstat-num editable-field">3</div><div class="hstat-label editable-field">Tech Domains</div></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="avatar" id="avatarEl" onclick="triggerAvatarUpload()">
+        <span id="avatarInitial">M</span>
+        <img id="avatarImg" src="" style="display:none">
+        <div class="avatar-overlay"><i class="ti ti-camera"></i></div>
+      </div>
+      <input type="file" id="avatarInput" accept="image/*" onchange="handleAvatarChange(event)">
+      <div class="avatar-hint"><i class="ti ti-camera" style="font-size:11px"></i> Change Photo</div>
+      <div class="hc-name editable-field">Madhan Gopal I</div>
+      <div class="hc-role editable-field">B.E. EEE — SMVEC, Puducherry</div>
+      <hr class="hc-divider">
+      <div class="hc-row"><i class="ti ti-map-pin" aria-hidden="true"></i><span class="editable-field">Puducherry, India</span></div>
+      <div class="hc-row"><i class="ti ti-school" aria-hidden="true"></i><span class="editable-field">Sri Manakula Vinayagar Engg. College</span></div>
+      <div class="hc-row"><i class="ti ti-calendar" aria-hidden="true"></i><span class="editable-field">Final Year · 2025 Batch</span></div>
+      <div class="hc-row"><i class="ti ti-briefcase" aria-hidden="true"></i><span class="editable-field">Open to Core + Software roles</span></div>
+      <div class="hc-chips" id="heroChips">
+        <span class="chip">ESP32</span><span class="chip">STM32</span><span class="chip">Python</span><span class="chip">React</span>
+        <span class="chip green">● Open to Work</span>
+      </div>
+      <button class="add-skill-btn" id="addChipBtn" onclick="openModal('chip')" style="margin-top:0.6rem"><i class="ti ti-plus"></i> Add Chip</button>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<section id="projects-sec" class="reveal">
+  <div class="sec-label">// 01 — Selected Work</div>
+  <div class="sec-title">Featured <span>Projects</span></div>
+  <div class="sec-sub editable-field">A mix of embedded systems, IoT, and web development work built during college.</div>
+  <div class="proj-grid" id="projGrid">
+    <div class="proj-card">
+      <button class="card-del-btn" onclick="delCard(this)" title="Delete project"><i class="ti ti-trash"></i></button>
+      <div class="proj-icon"><i class="ti ti-face-id"></i></div>
+      <div class="proj-title editable-field">Face Recognition Attendance System</div>
+      <div class="proj-desc editable-field">Smart attendance system using ESP32-CAM, Python, OpenCV, and LBPH algorithm. Automatically marks attendance via real-time face detection.</div>
+      <div class="proj-tags"><span class="ptag">ESP32-CAM</span><span class="ptag">Python</span><span class="ptag">OpenCV</span><span class="ptag">LBPH</span></div>
+      <div class="proj-link-row" data-url="">
+        <i class="ti ti-link"></i>
+        <span class="proj-link-empty">No project URL added</span>
+        <input type="text" class="proj-link-input" value="" placeholder="https://your-project-link.com" onchange="updateProjLink(this)">
+      </div>
+    </div>
+    <div class="proj-card">
+      <button class="card-del-btn" onclick="delCard(this)" title="Delete project"><i class="ti ti-trash"></i></button>
+      <div class="proj-icon" style="background:rgba(124,58,237,0.12)"><i class="ti ti-message-circle" style="color:var(--accent2)"></i></div>
+      <div class="proj-title editable-field">Yap! — Real-Time Messaging App</div>
+      <div class="proj-desc editable-field">Privacy-focused messaging web app with YAP IDs, QR contact adding, real-time chat — built on mobile using Supabase and Vercel.</div>
+      <div class="proj-tags"><span class="ptag">Supabase</span><span class="ptag">JavaScript</span><span class="ptag">Vercel</span><span class="ptag">Real-time</span></div>
+      <div class="proj-link-row" data-url="https://yap-app.vercel.app">
+        <i class="ti ti-link"></i>
+        <a href="https://yap-app.vercel.app" target="_blank" rel="noopener">https://yap-app.vercel.app</a>
+        <input type="text" class="proj-link-input" value="https://yap-app.vercel.app" placeholder="https://your-project-link.com" onchange="updateProjLink(this)">
+      </div>
+    </div>
+    <div class="proj-card">
+      <button class="card-del-btn" onclick="delCard(this)" title="Delete project"><i class="ti ti-trash"></i></button>
+      <div class="proj-icon" style="background:rgba(16,185,129,0.1)"><i class="ti ti-cpu" style="color:#10b981"></i></div>
+      <div class="proj-title editable-field">STM32H5 TrustZone Firmware</div>
+      <div class="proj-desc editable-field">Merged keypad and LCD display functionality into TrustZone-enabled firmware on STM32H5xx with secure/non-secure partitioning.</div>
+      <div class="proj-tags"><span class="ptag">STM32H5</span><span class="ptag">TrustZone</span><span class="ptag">C</span><span class="ptag">Firmware</span></div>
+      <div class="proj-link-row" data-url="">
+        <i class="ti ti-link"></i>
+        <span class="proj-link-empty">No project URL added</span>
+        <input type="text" class="proj-link-input" value="" placeholder="https://your-project-link.com" onchange="updateProjLink(this)">
+      </div>
+    </div>
+    <div class="proj-card">
+      <button class="card-del-btn" onclick="delCard(this)" title="Delete project"><i class="ti ti-trash"></i></button>
+      <div class="proj-icon" style="background:rgba(251,146,60,0.1)"><i class="ti ti-building-agency" style="color:#fb923c"></i></div>
+      <div class="proj-title editable-field">Veluryn Agency Website</div>
+      <div class="proj-desc editable-field">Single-file HTML agency site with dark navy aesthetic. Includes VASD operational framework and AI video content prompts.</div>
+      <div class="proj-tags"><span class="ptag">HTML/CSS</span><span class="ptag">JavaScript</span><span class="ptag">AI</span><span class="ptag">Design</span></div>
+      <div class="proj-link-row" data-url="https://veluryn.agency">
+        <i class="ti ti-link"></i>
+        <a href="https://veluryn.agency" target="_blank" rel="noopener">https://veluryn.agency</a>
+        <input type="text" class="proj-link-input" value="https://veluryn.agency" placeholder="https://your-project-link.com" onchange="updateProjLink(this)">
+      </div>
+    </div>
+    <div class="add-card" onclick="openModal('project')"><i class="ti ti-plus"></i><span>Add Project</span></div>
+  </div>
+</section>
+
+<hr class="div">
+
+<section id="skills-sec" class="reveal">
+  <div class="sec-label">// 02 — Technical Profile</div>
+  <div class="sec-title">Skills &amp; <span>Expertise</span></div>
+  <div class="skills-wrap">
+    <div>
+      <div class="skill-group-title"><i class="ti ti-cpu" aria-hidden="true"></i> <span class="editable-field">Embedded &amp; Hardware</span></div>
+      <div id="skills-hw"></div>
+      <button class="add-skill-btn" onclick="openModal('skill','hw')"><i class="ti ti-plus"></i> Add Skill</button>
+    </div>
+    <div>
+      <div class="skill-group-title"><i class="ti ti-code" aria-hidden="true"></i> <span class="editable-field">Software &amp; Web</span></div>
+      <div id="skills-sw"></div>
+      <button class="add-skill-btn" onclick="openModal('skill','sw')"><i class="ti ti-plus"></i> Add Skill</button>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<section id="about-sec" class="reveal">
+  <div class="sec-label">// 03 — About Me</div>
+  <div class="sec-title">The <span>Builder</span> Behind the Work</div>
+  <div class="about-grid">
+    <div>
+      <p class="editable-field" style="font-size:0.88rem;color:var(--text);line-height:1.8;margin-bottom:0.9rem" id="aboutP1">I'm Madhan Gopal I, a final-year EEE student at SMVEC, Puducherry. Passionate about bridging hardware and software — from STM32 firmware to full-stack web apps deployed on Vercel.</p>
+      <p class="editable-field" style="font-size:0.88rem;color:var(--text);line-height:1.8" id="aboutP2">Beyond engineering, I create cinematic video edits, explore AI tools, and run creative side projects. Actively preparing for campus placements in core and software roles.</p>
+      <div class="about-highlights" id="highlights">
+        <div class="hl-card"><div class="hl-num editable-field">SMVEC</div><div class="hl-label editable-field">Puducherry</div></div>
+        <div class="hl-card"><div class="hl-num editable-field">EEE</div><div class="hl-label editable-field">2025 Batch</div></div>
+        <div class="hl-card"><div class="hl-num editable-field">IoT</div><div class="hl-label editable-field">Specialist</div></div>
+        <div class="hl-card"><div class="hl-num editable-field">Web</div><div class="hl-label editable-field">Developer</div></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem">Experience &amp; Education</div>
+      <div class="about-timeline" id="timeline"></div>
+      <button class="add-tl-btn" onclick="openModal('timeline')"><i class="ti ti-plus"></i> Add Entry</button>
+    </div>
+  </div>
+</section>
+
+<div id="contact-sec" class="contact-wrap">
+  <div class="contact-inner">
+    <div>
+      <div class="sec-label">// 04 — Get In Touch</div>
+      <div class="sec-title">Let's <span>Connect</span></div>
+      <p style="font-size:0.87rem;color:var(--muted);margin-top:0.7rem;line-height:1.7">Have an opportunity or project? Drop a message — I respond within 24 hours.</p>
+      <div style="margin-top:1.5rem">
+        <div class="ci-row"><div class="ci-icon"><i class="ti ti-mail"></i></div><div><div class="ci-label">Email</div><div class="ci-val editable-field">madhan@email.com</div></div></div>
+        <div class="ci-row"><div class="ci-icon"><i class="ti ti-map-pin"></i></div><div><div class="ci-label">Location</div><div class="ci-val editable-field">Puducherry, India</div></div></div>
+        <div class="ci-row"><div class="ci-icon"><i class="ti ti-clock"></i></div><div><div class="ci-label">Response Time</div><div class="ci-val editable-field">Within 24 hours</div></div></div>
+      </div>
+      <div class="socials">
+        <div class="soc-btn"><i class="ti ti-brand-linkedin"></i></div>
+        <div class="soc-btn"><i class="ti ti-brand-github"></i></div>
+        <div class="soc-btn"><i class="ti ti-brand-instagram"></i></div>
+        <div class="soc-btn"><i class="ti ti-brand-twitter"></i></div>
+      </div>
+    </div>
+    <div>
+      <div class="cf-label">Your Name</div><input class="cf-input" type="text" placeholder="e.g. Priya Sharma">
+      <div class="cf-label">Email</div><input class="cf-input" type="email" placeholder="you@example.com">
+      <div class="cf-label">Subject</div><input class="cf-input" type="text" placeholder="Internship / Project / Collaboration">
+      <div class="cf-label">Message</div><textarea class="cf-input" rows="4" placeholder="Tell me about the opportunity..."></textarea>
+      <button class="cf-submit" onclick="this.textContent='Message Sent ✓';this.style.background='var(--success)';setTimeout(()=>{this.textContent='Send Message';this.style.background=''},2500)">Send Message</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>© 2026 <span>Madhan Gopal I</span> — All Rights Reserved</div>
+  <div>Puducherry, India</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal" id="modalBox">
+    <h3 id="modalTitle">Add Item</h3>
+    <div id="modalBody"></div>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="modal-save" onclick="saveModal()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let isEdit = false;
+let modalType = '', modalMeta = '';
+
+const hwSkills = [
+  {name:'ESP32 / ESP32-CAM',pct:88,level:'Advanced'},
+  {name:'STM32 (H5xx)',pct:72,level:'Intermediate'},
+  {name:'Circuit Design / EEE',pct:85,level:'Advanced'},
+  {name:'MATLAB / Simulink',pct:68,level:'Intermediate'},
+  {name:'C / Embedded C',pct:74,level:'Intermediate'}
+];
+const swSkills = [
+  {name:'Python',pct:84,level:'Advanced'},
+  {name:'HTML / CSS / JS',pct:82,level:'Advanced'},
+  {name:'React / Supabase',pct:65,level:'Intermediate'},
+  {name:'OpenCV / Vision',pct:70,level:'Intermediate'},
+  {name:'Canva / Graphic Design',pct:88,level:'Advanced'}
+];
+const timelineData = [
+  {year:'2021 — Present',title:'B.E. Electrical & Electronics Engineering',sub:'Sri Manakula Vinayagar Engineering College, Puducherry',active:true},
+  {year:'2024',title:'Embedded Systems Projects',sub:'Face Recognition Attendance · STM32 TrustZone Firmware',active:false},
+  {year:'2024',title:'Full-Stack Web Development',sub:'Yap! Messaging App · Veluryn Agency · Trivon Portfolio',active:false},
+  {year:'2023 — 2024',title:'Certifications & Programs',sub:'Wadhwani Ignite Lite · NxtWave AI · Mahindra Rise',active:false}
+];
+
+function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+
+function renderSkills(arr, containerId){
+  const c = document.getElementById(containerId);
+  c.innerHTML = '';
+  arr.forEach((s,i)=>{
+    const row = document.createElement('div');
+    row.className = 'skill-bar-row';
+    row.innerHTML = `
+      <div class="skill-bar-header">
+        <div class="skill-name-wrap">
+          <span class="skill-track" style="background:rgba(255,255,255,0.06);height:4px;border-radius:3px;flex:1;overflow:hidden;position:relative;margin:0">
+            <span class="skill-fill" style="width:${s.pct}%;height:100%;display:block;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></span>
+          </span>
+          <span style="font-size:0.8rem;color:var(--text);white-space:nowrap">${s.name}</span>
+        </div>
+        <span class="skill-pct">${s.pct}%</span>
+        <input type="range" class="skill-range" min="5" max="100" step="1" value="${s.pct}" oninput="updateSkillPct(this,'${containerId}',${i})">
+        <button class="skill-del" onclick="deleteSkill('${containerId}',${i})" title="Delete skill"><i class="ti ti-trash"></i></button>
+      </div>`;
+    c.appendChild(row);
+  });
+}
+
+function updateSkillPct(slider, cid, idx){
+  const arr = cid==='skills-hw'?hwSkills:swSkills;
+  arr[idx].pct = +slider.value;
+  const row = slider.closest('.skill-bar-row');
+  row.querySelector('.skill-fill').style.width = slider.value+'%';
+  row.querySelector('.skill-pct').textContent = slider.value+'%';
+}
+
+function deleteSkill(cid, idx){
+  const arr = cid==='skills-hw'?hwSkills:swSkills;
+  arr.splice(idx,1);
+  renderSkills(arr,cid);
+}
+
+function renderTimeline(){
+  const c = document.getElementById('timeline');
+  c.innerHTML='';
+  timelineData.forEach((t,i)=>{
+    const el = document.createElement('div');
+    el.className='tl-item';
+    el.innerHTML=`
+      <div class="tl-dot${t.active?' active':''}"><i class="ti ti-${t.active?'school':'device-desktop'}"></i></div>
+      <div style="flex:1">
+        <div class="tl-year editable-field">${t.year}</div>
+        <div class="tl-title editable-field">${t.title}</div>
+        <div class="tl-sub editable-field">${t.sub}</div>
+      </div>
+      <button class="tl-del" onclick="delTimeline(${i})"><i class="ti ti-trash"></i></button>`;
+    c.appendChild(el);
+  });
+}
+
+function delTimeline(i){timelineData.splice(i,1);renderTimeline()}
+function delCard(btn){if(confirm('Delete this project?'))btn.closest('.proj-card').remove()}
+
+function updateProjLink(input){
+  const row = input.closest('.proj-link-row');
+  const url = input.value.trim();
+  row.setAttribute('data-url', url);
+  let a = row.querySelector('a');
+  let empty = row.querySelector('.proj-link-empty');
+  if(url){
+    if(a){ a.href = url; a.textContent = url; }
+    else if(empty){
+      const newA = document.createElement('a');
+      newA.href = url; newA.target = '_blank'; newA.rel = 'noopener'; newA.textContent = url;
+      empty.replaceWith(newA);
+    }
+  } else {
+    if(a){
+      const span = document.createElement('span');
+      span.className = 'proj-link-empty';
+      span.textContent = 'No project URL added';
+      a.replaceWith(span);
+    }
+  }
+}
+
+function promptEditCode(){
+  if(isEdit){ toggleEdit(); return; }
+  const entered = prompt('Enter your edit code to unlock:');
+  if(entered === null) return;
+  if(entered === '2006'){ toggleEdit(); }
+  else { showCodeError(); }
+}
+
+function showCodeError(){
+  const btn = document.getElementById('editToggle');
+  const lbl = document.getElementById('editLabel');
+  const icon = document.getElementById('editIcon');
+  btn.style.background='rgba(226,75,74,0.12)';
+  btn.style.borderColor='rgba(226,75,74,0.4)';
+  btn.style.color='var(--danger)';
+  icon.className='ti ti-lock-exclamation';
+  lbl.textContent='Wrong Code';
+  setTimeout(()=>{
+    btn.style.background='';btn.style.borderColor='';btn.style.color='';
+    icon.className='ti ti-lock';lbl.textContent='Edit Mode';
+  },1800);
+}
+
+function toggleEdit(){
+  isEdit = !isEdit;
+  document.body.classList.toggle('edit-mode',isEdit);
+  const btn = document.getElementById('editToggle');
+  const lbl = document.getElementById('editLabel');
+  const icon = document.getElementById('editIcon');
+  const banner = document.getElementById('editBanner');
+  if(isEdit){
+    btn.classList.add('active');
+    icon.className='ti ti-check';
+    lbl.textContent='Done Editing';
+    banner.classList.add('show');
+    document.querySelectorAll('.editable-field').forEach(el=>el.contentEditable='true');
+  } else {
+    btn.classList.remove('active');
+    icon.className='ti ti-lock';
+    lbl.textContent='Edit Mode';
+    banner.classList.remove('show');
+    document.querySelectorAll('.editable-field').forEach(el=>el.contentEditable='false');
+  }
+}
+
+function openModal(type, meta=''){
+  modalType=type; modalMeta=meta;
+  const title = document.getElementById('modalTitle');
+  const body = document.getElementById('modalBody');
+  if(type==='project'){
+    title.textContent='Add Project';
+    body.innerHTML=`
+      <label>Project Title</label><input id="m-title" placeholder="e.g. Smart Home System">
+      <label>Description</label><textarea id="m-desc" rows="3" placeholder="What does this project do?"></textarea>
+      <label>Tags (comma separated)</label><input id="m-tags" placeholder="ESP32, Python, MQTT">
+      <label>Project URL</label><input id="m-url" placeholder="https://github.com/you/project or live link">`;
+  } else if(type==='skill'){
+    title.textContent='Add Skill';
+    body.innerHTML=`
+      <label>Skill Name</label><input id="m-name" placeholder="e.g. Node.js">
+      <label>Proficiency (0–100)</label><input id="m-pct" type="number" min="5" max="100" value="70">
+      <label>Level</label>
+      <select id="m-level"><option>Beginner</option><option selected>Intermediate</option><option>Advanced</option></select>`;
+  } else if(type==='timeline'){
+    title.textContent='Add Timeline Entry';
+    body.innerHTML=`
+      <label>Year / Period</label><input id="m-year" placeholder="e.g. 2025">
+      <label>Title</label><input id="m-tl-title" placeholder="e.g. Internship at XYZ">
+      <label>Subtitle / Details</label><input id="m-tl-sub" placeholder="e.g. Worked on embedded systems">`;
+  } else if(type==='chip'){
+    title.textContent='Add Chip';
+    body.innerHTML=`<label>Chip Label</label><input id="m-chip" placeholder="e.g. Node.js">`;
+  }
+  document.getElementById('modalBg').classList.add('show');
+  setTimeout(()=>{body.querySelector('input,textarea,select')&&body.querySelector('input,textarea,select').focus()},100);
+}
+
+function closeModal(){document.getElementById('modalBg').classList.remove('show')}
+
+function saveModal(){
+  if(modalType==='project'){
+    const title=document.getElementById('m-title').value.trim();
+    if(!title)return;
+    const desc=document.getElementById('m-desc').value.trim();
+    const tags=(document.getElementById('m-tags').value||'').split(',').map(t=>t.trim()).filter(Boolean);
+    const grid=document.getElementById('projGrid');
+    const addCard=grid.querySelector('.add-card');
+    const url=document.getElementById('m-url').value.trim();
+    const card=document.createElement('div');
+    card.className='proj-card';
+    const linkInner = url
+      ? `<i class="ti ti-link"></i><a href="${url}" target="_blank" rel="noopener">${url}</a><input type="text" class="proj-link-input" value="${url}" placeholder="https://your-project-link.com" onchange="updateProjLink(this)">`
+      : `<i class="ti ti-link"></i><span class="proj-link-empty">No project URL added</span><input type="text" class="proj-link-input" value="" placeholder="https://your-project-link.com" onchange="updateProjLink(this)">`;
+    card.innerHTML=`
+      <button class="card-del-btn" onclick="delCard(this)"><i class="ti ti-trash"></i></button>
+      <div class="proj-icon"><i class="ti ti-code"></i></div>
+      <div class="proj-title editable-field">${title}</div>
+      <div class="proj-desc editable-field">${desc}</div>
+      <div class="proj-tags">${tags.map(t=>`<span class="ptag">${t}</span>`).join('')}</div>
+      <div class="proj-link-row" data-url="${url}">${linkInner}</div>`;
+    if(isEdit)card.querySelector('.proj-title').contentEditable='true';
+    if(isEdit)card.querySelector('.proj-desc').contentEditable='true';
+    grid.insertBefore(card,addCard);
+  } else if(modalType==='skill'){
+    const name=document.getElementById('m-name').value.trim();
+    const pct=+document.getElementById('m-pct').value||70;
+    const level=document.getElementById('m-level').value;
+    if(!name)return;
+    const arr=modalMeta==='hw'?hwSkills:swSkills;
+    const cid=modalMeta==='hw'?'skills-hw':'skills-sw';
+    arr.push({name,pct,level});
+    renderSkills(arr,cid);
+  } else if(modalType==='timeline'){
+    const year=document.getElementById('m-year').value.trim();
+    const title=document.getElementById('m-tl-title').value.trim();
+    const sub=document.getElementById('m-tl-sub').value.trim();
+    if(!title)return;
+    timelineData.push({year,title,sub,active:false});
+    renderTimeline();
+  } else if(modalType==='chip'){
+    const label=document.getElementById('m-chip').value.trim();
+    if(!label)return;
+    const span=document.createElement('span');
+    span.className='chip';
+    span.textContent=label;
+    document.getElementById('heroChips').insertBefore(span,document.getElementById('addChipBtn'));
+  }
+  closeModal();
+}
+
+document.getElementById('modalBg').addEventListener('click',function(e){if(e.target===this)closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+function triggerAvatarUpload(){
+  if(!isEdit) return;
+  document.getElementById('avatarInput').click();
+}
+
+function handleAvatarChange(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    const img = document.getElementById('avatarImg');
+    const initial = document.getElementById('avatarInitial');
+    img.src = ev.target.result;
+    img.style.display = 'block';
+    initial.style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+renderSkills(hwSkills,'skills-hw');
+renderSkills(swSkills,'skills-sw');
+renderTimeline();
+</script>
